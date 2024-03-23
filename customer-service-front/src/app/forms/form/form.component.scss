@@ -1,0 +1,44 @@
+.form-container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 100%;
+    max-width: 600px;
+    margin: auto;
+  
+    .mat-form-field {
+      width: 100%;
+    }
+  
+    mat-table {
+      margin-top: 20px;
+    }
+  }
+  .refresh{
+    margin-right: 10px;
+    font-size: 28px !important; 
+    width: 35px;
+  }
+  .clickable {
+      cursor: pointer;
+    }
+  
+  .clickable:hover {background-color: #eef1ff;}
+  
+    * {
+      box-sizing: border-box;
+    }
+    
+    .zoom {
+      transition: transform .2s;
+    }
+    
+    .zoom:hover {
+      -ms-transform: scale(1.5); /* IE 9 */
+      -webkit-transform: scale(1.5); /* Safari 3-8 */
+      transform: scale(1.5); 
+    }
+    .add-button{
+      margin-bottom: 8px;
+    }
+  

@@ -1,0 +1,53 @@
+<div class="form-container">
+    <mat-form-field appearance="fill" style="margin-top: 1.5em;">
+      <mat-label>Select an Agent</mat-label>
+      <mat-select (selectionChange)="onAgentSelectionChange($event.value)">
+        <mat-option *ngFor="let agent of agents" [value]="agent.agentId">
+            {{ agent.agentName }}
+        </mat-option>
+    </mat-select>
+</mat-form-field>
+</div>
+
+<div style="display: flex; justify-content: space-between; align-items: center; padding: 10px;">
+    <button mat-raised-button color="primary" [routerLink]="['./add']" class="add-button">
+      {{ 'Add' }}
+    </button>
+    <button style="float: right">
+      <mat-icon class="refresh zoom">refresh</mat-icon>
+    </button>
+  </div>
+  
+    <div *ngIf="selectedAgentId">
+      <mat-table [dataSource]="forms" class="mat-elevation-z8" style="min-width : 100%;">
+        <!-- Columns defined here -->
+        <ng-container matColumnDef="formId">
+          <mat-header-cell *matHeaderCellDef>Form ID</mat-header-cell>
+          <mat-cell *matCellDef="let element">{{element.formId}}</mat-cell>
+        </ng-container>
+  
+        <ng-container matColumnDef="formName">
+          <mat-header-cell *matHeaderCellDef>Form Name</mat-header-cell>
+          <mat-cell *matCellDef="let element">{{element.formName}}</mat-cell>
+        </ng-container>
+  
+        <ng-container matColumnDef="agentId">
+          <mat-header-cell *matHeaderCellDef>Agent ID</mat-header-cell>
+          <mat-cell *matCellDef="let element">{{element.agentId}}</mat-cell>
+        </ng-container>
+  
+        <ng-container matColumnDef="customerId">
+          <mat-header-cell *matHeaderCellDef>Customer ID</mat-header-cell>
+          <mat-cell *matCellDef="let element">{{element.customerId}}</mat-cell>
+        </ng-container>
+  
+        <ng-container matColumnDef="createdDate">
+          <mat-header-cell *matHeaderCellDef>Created Date</mat-header-cell>
+          <mat-cell *matCellDef="let element">{{element.createdDate | date}}</mat-cell>
+        </ng-container>
+  
+        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+      </mat-table>
+    </div>
+  
