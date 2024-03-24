@@ -30,7 +30,7 @@ export class AuthService {
     };
   
     return this.http.post<string>(
-      `${this.localUrl}habit/login`,
+      `${this.localUrl}CustomerService/login`,
       { username, password },
       options 
     ).pipe(
@@ -38,6 +38,8 @@ export class AuthService {
         this.token = response;
         const decodedToken: any = jwt_decode(this.token); 
         this.Id = decodedToken.nameid
+        localStorage.setItem('userId', JSON.stringify(this.Id));
+        // JSON.parse(localStorage.getItem('userId'));
       })
     );
   }  

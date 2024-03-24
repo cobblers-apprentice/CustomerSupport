@@ -23,10 +23,18 @@ namespace CustomerServiceApi.Repository.Implementation
 
         public async Task<Form> SaveForm(Form form)
         {
-            _context.Forms.Add(form);
+            if (form.FormId != null)
+            {
+                _context.Forms.Update(form);
+            }
+            else
+            {
+                _context.Forms.Add(form);
+            }
             await _context.SaveChangesAsync();
             return form;
         }
+
 
         public async Task<bool> DeleteForm(int formId)
         {

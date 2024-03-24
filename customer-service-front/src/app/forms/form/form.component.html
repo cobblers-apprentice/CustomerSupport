@@ -1,4 +1,4 @@
-<div class="form-container">
+<!-- <div class="form-container">
     <mat-form-field appearance="fill" style="margin-top: 1.5em;">
       <mat-label>Select an Agent</mat-label>
       <mat-select (selectionChange)="onAgentSelectionChange($event.value)">
@@ -7,18 +7,17 @@
         </mat-option>
     </mat-select>
 </mat-form-field>
-</div>
+</div> -->
 
 <div style="display: flex; justify-content: space-between; align-items: center; padding: 10px;">
     <button mat-raised-button color="primary" [routerLink]="['./add']" class="add-button">
       {{ 'Add' }}
     </button>
-    <button style="float: right">
+    <button style="float: right" (click)="onAgentSelectionChange()">
       <mat-icon class="refresh zoom">refresh</mat-icon>
     </button>
   </div>
   
-    <div *ngIf="selectedAgentId">
       <mat-table [dataSource]="forms" class="mat-elevation-z8" style="min-width : 100%;">
         <!-- Columns defined here -->
         <ng-container matColumnDef="formId">
@@ -45,9 +44,19 @@
           <mat-header-cell *matHeaderCellDef>Created Date</mat-header-cell>
           <mat-cell *matCellDef="let element">{{element.createdDate | date}}</mat-cell>
         </ng-container>
+
+        <ng-container matColumnDef="delete">
+          <mat-header-cell *matHeaderCellDef>{{ 'Delete' }}</mat-header-cell>
+          <mat-cell *matCellDef="let element">
+            <a mat-icon-button  (click)="deleteForm($event, element.formId)"
+             matTooltip="{{ 'label_delete' }}">
+              <mat-icon>delete</mat-icon>
+            </a>
+          </mat-cell>
+        </ng-container>
   
         <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-        <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+        <mat-row *matRowDef="let row; columns: displayedColumns;"
+        [routerLink]="['./edit', row.formId]"></mat-row>
       </mat-table>
-    </div>
   

@@ -6,5 +6,5 @@ export class Form {
     agentId: number;
     customerId: number;
     createdDate: Date;
-    agent: Agent;
+    agent?: Agent;
 }

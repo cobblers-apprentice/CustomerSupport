@@ -1,1 +1,44 @@
-<p>edit works!</p>
+<div class="container mt-4">
+    <div class="d-flex justify-content-start mb-3">
+      <a [routerLink]="['/form']" class="btn btn-secondary me-2">Back</a>
+      <button type="button" class="btn btn-primary" (click)="submit()">Submit</button>
+    </div>
+
+<div class="container mt-4">
+
+    <div class="card">
+      <div class="card-body">
+        <form [formGroup]="formGroup">
+          <mat-form-field appearance="fill" class="mb-3" style="margin-right: 2em;">
+            <mat-label>Form Name</mat-label>
+            <input matInput type="text" id="formName" formControlName="formName">
+          </mat-form-field>
+  
+          <mat-form-field appearance="fill" class="mb-3" style="margin-right: 2em;">
+            <mat-label>Agent</mat-label>
+            <mat-select formControlName="agentId" readonly="true">
+              <mat-option *ngFor="let agent of agents" [value]="agent.agentId" [disabled]="true">
+                {{ agent.agentName }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+  
+          <mat-form-field appearance="fill" class="mb-3" style="margin-right: 2em;">
+            <mat-label>Customer ID</mat-label>
+            <input matInput type="number" id="customerId" formControlName="customerId" min="1" max="200">
+          </mat-form-field>
+          
+  
+          <button type="button" class="btn btn-primary" (click)="getCustomerData()">Get Customer Data</button>
+  
+          <div *ngIf="customer">
+            <p>Customer Name: {{ customer.name }}</p>
+            <p>Customer Number: {{ customer.ssn }}</p>
+          </div>
+  
+          <!-- Add buttons or other controls as needed -->
+        </form>
+      </div>
+    </div>
+  </div>
+  

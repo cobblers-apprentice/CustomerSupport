@@ -7,6 +7,9 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using HabitTracker.Service.ServiceInterface;
+using HabitTracker.Service.ServiceImplementation;
+using HabitTracker.Repository.RepositoryImplementation;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -14,6 +17,8 @@ builder.Services.AddScoped<IAgentRepository, AgentRepository>();
 builder.Services.AddScoped<IAgentService, AgentService>();
 builder.Services.AddScoped<IFormRepository, FormRepository>();
 builder.Services.AddScoped<IFormService, FormService>();
+builder.Services.AddScoped<IWhoAreUService, WhoAreUService>();
+builder.Services.AddScoped<IWhoAreURepository, WhoAreURepository>();
 
 
 string secretKey = builder.Configuration.GetSection("JwtSettings:SecretKey").Value;
@@ -79,6 +84,8 @@ app.Services.CreateScope().ServiceProvider.GetRequiredService<DbContextData>().D
 
 
 app.UseHttpsRedirection();
+app.UseAuthentication();
+
 
 app.UseAuthorization();
 

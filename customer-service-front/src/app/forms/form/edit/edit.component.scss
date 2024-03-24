@@ -1,0 +1,43 @@
+.save-button {
+    display: flex;
+    justify-content: flex-end;
+    width: 100%;
+  }
+  
+  .buttons {
+    place-content: flex-end !important;
+  }
+  
+  .button {
+    margin-right: 5px;
+  }
+  
+  .parentInput {
+    max-width: 100%;
+  }
+  
+  .input {
+    margin-right: 1em;
+    width: 38em;
+  }
+  
+  @media (max-width: 800px) {
+    .input {
+      width: 100%;
+    }
+  }
+  
+  .checkbox {
+    padding: 0.5em;
+  }
+  
+  .inputSifra {
+    margin-right: 1em;
+    width: 15em;
+  }
+  .margin{
+    padding-top: 1em
+  }
+  :host ::ng-deep .ck-editor__editable_inline {
+    min-height:30em;
+  }
