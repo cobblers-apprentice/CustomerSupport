@@ -4,6 +4,7 @@ using CustomerServiceApi.Utility;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CustomerServiceApi.Migrations
 {
     [DbContext(typeof(DbContextData))]
-    partial class DbContextDataModelSnapshot : ModelSnapshot
+    [Migration("20240324221522_AddNewColumn")]
+    partial class AddNewColumn
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -72,19 +74,16 @@ namespace CustomerServiceApi.Migrations
 
             modelBuilder.Entity("CustomerServiceApi.Models.Purchase", b =>
                 {
-                    b.Property<int?>("PurchaseID")
+                    b.Property<int>("PurchaseID")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int?>("PurchaseID"), 1L, 1);
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("PurchaseID"), 1L, 1);
 
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<int?>("CustomerId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("FormId")
+                    b.Property<int>("FormId")
                         .HasColumnType("int");
 
                     b.Property<int>("PhurchaseAmount")
@@ -151,7 +150,9 @@ namespace CustomerServiceApi.Migrations
                 {
                     b.HasOne("CustomerServiceApi.Models.Form", "Form")
                         .WithMany()
-                        .HasForeignKey("FormId");
+                        .HasForeignKey("FormId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Form");
                 });

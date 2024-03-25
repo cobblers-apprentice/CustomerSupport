@@ -7,4 +7,5 @@ export class Form {
     customerId: number;
     createdDate: Date;
     agent?: Agent;
+    discount: number;
 }

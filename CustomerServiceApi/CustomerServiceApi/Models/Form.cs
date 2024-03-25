@@ -7,6 +7,7 @@
         public int AgentId { get; set; }
         public int CustomerId { get; set; }
         public DateTime CreatedDate { get; set; }
+        public double Discount { get; set; }
         public Agent? Agent { get; set; }
     }
 }

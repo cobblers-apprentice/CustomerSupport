@@ -38,6 +38,25 @@ namespace CustomerServiceApi.Controllers
             return Ok(token);
         }
 
+        //[HttpPost("SavePurchases")]
+        //public async Task<IActionResult> SavePurchases([FromBody] List<Purchase> purchases)
+        //{
+        //    foreach (var purchase in purchases)
+        //    {
+        //        // Check if customerId and date match
+        //        var form = await _context.Forms.FirstOrDefaultAsync(f => f.CustomerId == purchase.CustomerId && f.CreatedDate.Date == purchase.CreatedDate.Date);
+        //        if (form != null)
+        //        {
+        //            purchase.FormId = form.FormId;
+        //        }
+
+        //        _context.Purchases.Add(purchase);
+        //    }
+
+        //    await _context.SaveChangesAsync();
+        //    return Ok();
+        //}
+
 
         [HttpGet("getCustomerData")]
         public async Task<IActionResult> GetDataAsync([FromQuery] string id)

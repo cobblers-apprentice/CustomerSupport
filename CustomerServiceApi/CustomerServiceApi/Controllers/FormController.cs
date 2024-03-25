@@ -35,6 +35,16 @@ namespace CustomerServiceApi.Controllers
             var agentId = await _agentService.GetAgentIdByUserId(userId);
 
             var forms = await _formService.GetFormsByAgentIdAndDate(agentId ?? 0, DateTime.Now);
+            Console.WriteLine();
+            Console.WriteLine();
+            Console.WriteLine();
+            Console.WriteLine(DateTime.Now.Date);
+            Console.WriteLine();
+            Console.WriteLine();
+            Console.WriteLine();
+            Console.WriteLine();
+            Console.WriteLine();
+
             return Ok(forms);
         }
         [HttpGet("getAgentId")]

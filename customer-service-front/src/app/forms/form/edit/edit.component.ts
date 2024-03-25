@@ -2,8 +2,9 @@ import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
+import { switchMap } from 'rxjs';
+import { Form } from 'src/app/models/Form';
 import { Agent } from 'src/app/models/agent';
-import { Form } from 'src/app/models/form';
 import { FormService } from 'src/app/services/form.service';
 
 @Component({
@@ -26,8 +27,9 @@ export class EditComponent implements OnInit {
     this.formGroup = new FormGroup({
       formName: new FormControl('', [Validators.required]),
       agentId: new FormControl('', Validators.required),
-      customerId: new FormControl(0 , Validators.required),
-      createdDate: new FormControl('')
+      customerId: new FormControl('', Validators.required),
+      createdDate: new FormControl(''), 
+      discount: new FormControl('', Validators.required)
     });
   }
   ngOnInit(): void {
@@ -67,22 +69,38 @@ export class EditComponent implements OnInit {
 
   submit(){
     if(this.formGroup.valid){
-      console.log('ispravno')
+
+      const createdDate = new Date();
+createdDate.setHours(createdDate.getHours() + 1);
       let form: Form = {
         formId: this.formData.formId == null? null: this.formData.formId, 
         formName: this.formGroup.get('formName').value, 
         agentId: this.formGroup.get('agentId').value, 
         customerId: this.formGroup.get('customerId').value, 
-        createdDate: new Date(), 
-        agent:null
+        createdDate: createdDate, 
+        agent:null, 
+        discount: this.formGroup.get('discount').value
       }
-console.log(form)
-      this.formService.saveForm(form)
-      .subscribe({
-        next: res=> {
+
+      this.formService.getFormsByAgentIdAndDate().pipe(
+        switchMap((forms) => {
+          if (forms.length >= 5) {
+            throw new Error('Limit of 5 forms per agent per day reached.');
+          }
+          return this.formService.saveForm(form);
+        })
+      ).subscribe({
+        next: (res) => {
           this.location.back();
+        },
+        error: (error) => {
+          if (error.message === 'Limit of 5 forms per agent per day reached.') {
+            console.log(error.message);
+          } else {
+            console.error('Error:', error);
+          }
         }
-      })
+      });
     }
     else{
       this.formGroup.markAllAsTouched();
@@ -95,7 +113,6 @@ console.log(form)
     this.formService.getCustomerData(customerId).subscribe(
       (data) => {
         this.customer = data;
-        console.log(data)
       },
       (error) => {
         console.error('Error fetching customer data:', error);

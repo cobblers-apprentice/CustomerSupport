@@ -19,6 +19,8 @@ builder.Services.AddScoped<IFormRepository, FormRepository>();
 builder.Services.AddScoped<IFormService, FormService>();
 builder.Services.AddScoped<IWhoAreUService, WhoAreUService>();
 builder.Services.AddScoped<IWhoAreURepository, WhoAreURepository>();
+builder.Services.AddScoped<IPurchaseRepository, PurchaseRepository>();
+builder.Services.AddScoped<IPurchaseService, PurchaseService>();
 
 
 string secretKey = builder.Configuration.GetSection("JwtSettings:SecretKey").Value;

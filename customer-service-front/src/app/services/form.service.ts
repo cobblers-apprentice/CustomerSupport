@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../environments/environment.prod';
 import { Agent } from '../models/agent';
-import { Form } from '../models/form'; // Import the Form model
+import { Form } from '../models/Form';
 
 @Injectable({
   providedIn: 'root'

@@ -20,6 +20,12 @@
   
       <mat-table [dataSource]="forms" class="mat-elevation-z8" style="min-width : 100%;">
         <!-- Columns defined here -->
+        <ng-container matColumnDef="rb">
+          <mat-header-cell *matHeaderCellDef>#</mat-header-cell>
+          <mat-cell *matCellDef="let element">
+          {{ forms.filteredData.indexOf(element) + 1 }}</mat-cell>
+          </ng-container>
+
         <ng-container matColumnDef="formId">
           <mat-header-cell *matHeaderCellDef>Form ID</mat-header-cell>
           <mat-cell *matCellDef="let element">{{element.formId}}</mat-cell>
@@ -45,6 +51,11 @@
           <mat-cell *matCellDef="let element">{{element.createdDate | date}}</mat-cell>
         </ng-container>
 
+        <ng-container matColumnDef="discount">
+          <mat-header-cell *matHeaderCellDef>Discount</mat-header-cell>
+          <mat-cell *matCellDef="let element">{{element.discount}}</mat-cell>
+        </ng-container>
+
         <ng-container matColumnDef="delete">
           <mat-header-cell *matHeaderCellDef>{{ 'Delete' }}</mat-header-cell>
           <mat-cell *matCellDef="let element">
@@ -60,3 +71,6 @@
         [routerLink]="['./edit', row.formId]"></mat-row>
       </mat-table>
   
+      <div class="purchase-upload" style="margin-top: 1em;">
+        <input type="file" (change)="onFileChange($event)">
+      </div>
